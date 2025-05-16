@@ -1,0 +1,7 @@
+{
+  "name": "ViajesAppE",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}
