@@ -1,0 +1,83 @@
+.netflix-admin-card {
+  margin-bottom: 20px;
+  background-color: #1f1f1f;
+}
+
+.netflix-admin-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: white;
+  margin-bottom: 15px;
+}
+
+.netflix-admin-button {
+  --background: var(--ion-color-primary);
+  margin: 10px 0;
+}
+
+.netflix-admin-list {
+  margin-top: 20px;
+}
+
+.netflix-admin-item {
+  --background: #1f1f1f;
+  margin-bottom: 8px;
+  border-radius: 4px;
+}
+
+.netflix-admin-item h2 {
+  font-weight: bold;
+  font-size: 1.1rem;
+  color: white;
+  margin-bottom: 5px;
+}
+
+.netflix-admin-item p {
+  color: #cccccc;
+  font-size: 0.9rem;
+  margin: 3px 0;
+}
+
+.netflix-admin-toggle {
+  --background: #333333;
+  --background-checked: var(--ion-color-primary);
+  --handle-background: white;
+  --handle-background-checked: white;
+}
+
+.netflix-admin-options ion-item-option {
+  font-weight: bold;
+}
+
+.netflix-admin-modal ion-content {
+  --background: #1f1f1f;
+}
+
+.netflix-admin-modal ion-item {
+  --background: #2a2a2a;
+  --border-color: rgba(255, 255, 255, 0.1);
+  margin-bottom: 10px;
+  border-radius: 4px;
+}
+
+.netflix-admin-modal ion-label {
+  color: #cccccc;
+  font-weight: bold;
+}
+
+.netflix-admin-modal ion-input,
+.netflix-admin-modal ion-textarea {
+  --color: white;
+  --placeholder-color: #999999;
+  --padding-start: 10px;
+}
+
+.netflix-admin-modal ion-button {
+  margin-top: 20px;
+}
+
+.netflix-admin-empty {
+  padding: 40px 20px;
+  text-align: center;
+  color: #999999;
+}

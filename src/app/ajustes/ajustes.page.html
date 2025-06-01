@@ -1,0 +1,143 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Ajustes Generales</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+  <ion-list>
+    <!-- Sección de Notificaciones -->
+    <ion-item-divider>
+      <ion-label>Notificaciones</ion-label>
+    </ion-item-divider>
+    
+    <ion-item>
+      <ion-icon name="notificationsOutline" slot="start"></ion-icon>
+      <ion-label>Viajes próximos</ion-label>
+      <ion-toggle [(ngModel)]="notificaciones.viajes"></ion-toggle>
+    </ion-item>
+    
+    <ion-item>
+      <ion-icon name="notificationsOutline" slot="start"></ion-icon>
+      <ion-label>Promociones y ofertas</ion-label>
+      <ion-toggle [(ngModel)]="notificaciones.promociones"></ion-toggle>
+    </ion-item>
+    
+    <ion-item>
+      <ion-icon name="notificationsOutline" slot="start"></ion-icon>
+      <ion-label>Recordatorios</ion-label>
+      <ion-toggle [(ngModel)]="notificaciones.recordatorios"></ion-toggle>
+    </ion-item>
+    
+    <ion-item>
+      <ion-icon name="notificationsOutline" slot="start"></ion-icon>
+      <ion-label>Actualizaciones de la app</ion-label>
+      <ion-toggle [(ngModel)]="notificaciones.actualizaciones"></ion-toggle>
+    </ion-item>
+    
+    <!-- Sección de Apariencia -->
+    <ion-item-divider>
+      <ion-label>Apariencia</ion-label>
+    </ion-item-divider>
+    
+    <ion-item>
+      <ion-icon name="moonOutline" slot="start"></ion-icon>
+      <ion-label>Tema oscuro</ion-label>
+      <ion-toggle [(ngModel)]="temaOscuro"></ion-toggle>
+    </ion-item>
+    
+    <ion-item>
+      <ion-icon name="languageOutline" slot="start"></ion-icon>
+      <ion-label>Idioma</ion-label>
+      <ion-select [(ngModel)]="idioma" interface="popover">
+        <ion-select-option value="es">Español</ion-select-option>
+        <ion-select-option value="en">English</ion-select-option>
+        <ion-select-option value="fr">Français</ion-select-option>
+      </ion-select>
+    </ion-item>
+    
+    <ion-item>
+      <ion-icon name="colorPaletteOutline" slot="start"></ion-icon>
+      <ion-label>Tamaño de fuente: {{tamanoFuente}}px</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-range [(ngModel)]="tamanoFuente" min="12" max="20" step="1" (ionChange)="cambiarTamanoFuente()"></ion-range>
+    </ion-item>
+    
+    <!-- Sección de Privacidad -->
+    <ion-item-divider>
+      <ion-label>Privacidad</ion-label>
+    </ion-item-divider>
+    
+    <ion-item>
+      <ion-icon name="lockClosedOutline" slot="start"></ion-icon>
+      <ion-label>Compartir ubicación</ion-label>
+      <ion-toggle [(ngModel)]="compartirUbicacion"></ion-toggle>
+    </ion-item>
+    
+    <ion-item>
+      <ion-icon name="lockClosedOutline" slot="start"></ion-icon>
+      <ion-label>Datos para analytics</ion-label>
+      <ion-toggle [(ngModel)]="datosAnalytics"></ion-toggle>
+    </ion-item>
+    
+    <ion-item>
+      <ion-icon name="personOutline" slot="start"></ion-icon>
+      <ion-label>Perfil público</ion-label>
+      <ion-toggle [(ngModel)]="perfilPublico"></ion-toggle>
+    </ion-item>
+    
+    <!-- Sección de Preferencias de Viaje -->
+    <ion-item-divider>
+      <ion-label>Preferencias de Viaje</ion-label>
+    </ion-item-divider>
+    
+    <ion-item>
+      <ion-label>Moneda</ion-label>
+      <ion-select [(ngModel)]="moneda" interface="popover">
+        <ion-select-option value="MXN">Peso Mexicano (MXN)</ion-select-option>
+        <ion-select-option value="USD">Dólar Estadounidense (USD)</ion-select-option>
+        <ion-select-option value="EUR">Euro (EUR)</ion-select-option>
+      </ion-select>
+    </ion-item>
+    
+    <ion-item>
+      <ion-label>Unidad de distancia</ion-label>
+      <ion-radio-group [(ngModel)]="distancia">
+        <ion-item>
+          <ion-label>Kilómetros</ion-label>
+          <ion-radio value="km"></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label>Millas</ion-label>
+          <ion-radio value="mi"></ion-radio>
+        </ion-item>
+      </ion-radio-group>
+    </ion-item>
+  </ion-list>
+  
+  <div class="ion-padding">
+    <ion-button expand="block" color="primary" (click)="guardarAjustes()">
+      <ion-icon name="saveOutline" slot="start"></ion-icon>
+      Guardar Ajustes
+    </ion-button>
+    
+    <ion-button expand="block" color="danger" (click)="cerrarSesion()">
+      <ion-icon name="logOutOutline" slot="start"></ion-icon>
+      Cerrar Sesión
+    </ion-button>
+  </div>
+  
+  <!-- Toast para notificaciones -->
+  <ion-toast
+    [isOpen]="showToast"
+    [message]="toastMessage"
+    [duration]="2000"
+    (didDismiss)="showToast = false"
+    position="bottom"
+    color="primary">
+  </ion-toast>
+</ion-content>

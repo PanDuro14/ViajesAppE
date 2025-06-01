@@ -1,0 +1,57 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Mi Coordinador</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+  <h2 class="ion-text-center">Nuestros Coordinadores de Viaje</h2>
+  <p class="ion-text-center ion-padding-horizontal">Estos profesionales están disponibles para ayudarte durante todo tu viaje y resolver cualquier duda o problema que pueda surgir.</p>
+  
+  <ion-list>
+    <ion-card *ngFor="let coordinador of coordinadores">
+      <ion-item lines="none">
+        <ion-avatar slot="start">
+          <img [src]="coordinador.foto" alt="{{coordinador.nombre}}">
+        </ion-avatar>
+        <ion-label>
+          <h2>{{coordinador.nombre}} {{coordinador.apellido}}</h2>
+          <p>Coordinador de Viajes</p>
+        </ion-label>
+      </ion-item>
+      
+      <ion-card-content>
+        <ion-list lines="none">
+          <ion-item>
+            <ion-icon name="callOutline" slot="start"></ion-icon>
+            <ion-label>{{coordinador.telefono}}</ion-label>
+            <ion-button fill="clear" slot="end" (click)="llamarCoordinador(coordinador.telefono)">
+              Llamar
+            </ion-button>
+          </ion-item>
+          
+          <ion-item>
+            <ion-icon name="mailOutline" slot="start"></ion-icon>
+            <ion-label>{{coordinador.email}}</ion-label>
+            <ion-button fill="clear" slot="end" (click)="enviarEmail(coordinador.email)">
+              Email
+            </ion-button>
+          </ion-item>
+        </ion-list>
+        
+        <div class="ion-text-center ion-margin-top">
+          <ion-button expand="block" color="primary">
+            Asignar a mi viaje
+          </ion-button>
+        </div>
+      </ion-card-content>
+    </ion-card>
+  </ion-list>
+  
+  <div class="ion-padding ion-text-center" *ngIf="coordinadores.length === 0">
+    <p>No hay coordinadores disponibles en este momento.</p>
+  </div>
+</ion-content>

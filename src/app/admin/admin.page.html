@@ -1,0 +1,126 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Administrador</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+  <ion-card class="netflix-admin-card">
+    <ion-card-header>
+      <ion-card-title class="netflix-admin-title">Gestión de Viajes</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-button expand="block" (click)="openAddModal()" class="netflix-admin-button">
+        <ion-icon name="add-outline" slot="start"></ion-icon>
+        Agregar Nuevo Viaje
+      </ion-button>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-list class="netflix-admin-list">
+    <ion-item-sliding *ngFor="let viaje of viajes">
+      <ion-item class="netflix-admin-item">
+        <ion-label>
+          <h2>{{viaje.destino}}</h2>
+          <p>{{viaje.fechaInicio | date:'dd/MM/yyyy'}} - {{viaje.fechaFin | date:'dd/MM/yyyy'}}</p>
+          <p>{{viaje.precio | currency:'USD':'symbol':'1.0-0'}}</p>
+        </ion-label>
+        <ion-toggle slot="end" [(ngModel)]="viaje.disponible" (ionChange)="updateViajeStatus(viaje)" class="netflix-admin-toggle"></ion-toggle>
+      </ion-item>
+      <ion-item-options side="end" class="netflix-admin-options">
+        <ion-item-option color="primary" (click)="openEditModal(viaje)">
+          <ion-icon name="create-outline" slot="icon-only"></ion-icon>
+        </ion-item-option>
+        <ion-item-option color="danger" (click)="confirmDelete(viaje.id)">
+          <ion-icon name="trash-outline" slot="icon-only"></ion-icon>
+        </ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
+
+  <div *ngIf="viajes.length === 0" class="netflix-admin-empty">
+    <p>No hay viajes disponibles. ¡Agrega uno nuevo!</p>
+  </div>
+
+  <!-- Modal para agregar/editar viaje -->
+  <ion-modal [isOpen]="showModal" class="netflix-admin-modal">
+    <ng-template>
+      <ion-header>
+        <ion-toolbar>
+          <ion-title>{{isEditing ? 'Editar' : 'Nuevo'}} Viaje</ion-title>
+          <ion-buttons slot="end">
+            <ion-button (click)="cancelEdit()">
+              <ion-icon name="close-outline"></ion-icon>
+            </ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content class="ion-padding">
+        <ion-item>
+          <ion-label position="stacked">Destino</ion-label>
+          <ion-input [(ngModel)]="editingViaje.destino" placeholder="Ej. Cancún"></ion-input>
+        </ion-item>
+        
+        <ion-item>
+          <ion-label position="stacked">Fecha de Inicio</ion-label>
+          <ion-input type="date" [(ngModel)]="editingViaje.fechaInicio"></ion-input>
+        </ion-item>
+        
+        <ion-item>
+          <ion-label position="stacked">Fecha de Fin</ion-label>
+          <ion-input type="date" [(ngModel)]="editingViaje.fechaFin"></ion-input>
+        </ion-item>
+        
+        <ion-item>
+          <ion-label position="stacked">Precio</ion-label>
+          <ion-input type="number" [(ngModel)]="editingViaje.precio" placeholder="0"></ion-input>
+        </ion-item>
+        
+        <ion-item>
+          <ion-label position="stacked">Descripción</ion-label>
+          <ion-textarea [(ngModel)]="editingViaje.descripcion" rows="4" placeholder="Describe el viaje..."></ion-textarea>
+        </ion-item>
+        
+        <ion-item>
+          <ion-label position="stacked">Imagen</ion-label>
+          <ion-input [(ngModel)]="editingViaje.imagen" placeholder="URL de la imagen"></ion-input>
+          <ion-button slot="end" fill="clear" (click)="generateRandomImage()">
+            <ion-icon name="image-outline"></ion-icon>
+          </ion-button>
+        </ion-item>
+        
+        <ion-item>
+          <ion-label>Disponible</ion-label>
+          <ion-toggle [(ngModel)]="editingViaje.disponible"></ion-toggle>
+        </ion-item>
+        
+        <ion-button expand="block" class="netflix-admin-button" (click)="saveViaje()">
+          <ion-icon name="save-outline" slot="start"></ion-icon>
+          Guardar
+        </ion-button>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+
+  <!-- Alerta de confirmación para eliminar -->
+  <ion-alert
+    [isOpen]="showAlert"
+    header="Confirmar eliminación"
+    message="¿Estás seguro de que deseas eliminar este viaje? Esta acción no se puede deshacer."
+    [buttons]="alertButtons"
+    (didDismiss)="showAlert = false">
+  </ion-alert>
+
+  <!-- Toast para notificaciones -->
+  <ion-toast
+    [isOpen]="showToast"
+    [message]="toastMessage"
+    [duration]="3000"
+    (didDismiss)="showToast = false"
+    position="bottom"
+    color="primary">
+  </ion-toast>
+</ion-content>

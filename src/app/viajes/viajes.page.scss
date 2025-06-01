@@ -1,0 +1,114 @@
+.netflix-grid {
+  padding: 20px 10px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.netflix-card {
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+.netflix-card ion-img {
+  height: 200px;
+  object-fit: cover;
+}
+
+.netflix-card ion-card-header {
+  padding: 10px 15px;
+}
+
+.netflix-card ion-card-content {
+  padding: 0 15px 15px;
+}
+
+.netflix-title {
+  font-size: 1.4rem;
+  font-weight: bold;
+  margin: 8px 0;
+}
+
+.netflix-badge {
+  margin-right: 8px;
+}
+
+.netflix-description {
+  margin-bottom: 15px;
+  color: #cccccc;
+  font-size: 0.9rem;
+  line-height: 1.4;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.netflix-info-item {
+  margin-bottom: 8px;
+}
+
+.netflix-info-item ion-icon {
+  margin-right: 8px;
+  color: var(--ion-color-primary);
+}
+
+.netflix-button {
+  margin-top: 15px;
+}
+
+.netflix-empty {
+  padding: 40px 20px;
+  text-align: center;
+}
+
+.netflix-empty p {
+  color: #999999;
+  margin-bottom: 20px;
+}
+
+.netflix-segment {
+  padding: 10px 0;
+  background: transparent;
+}
+
+.netflix-searchbar {
+  margin-bottom: 20px;
+}
+
+.netflix-thumbnail {
+  width: 80px;
+  height: 60px;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.netflix-thumbnail ion-img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+
+.netflix-item {
+  --padding-start: 10px;
+  --inner-padding-end: 10px;
+  margin-bottom: 8px;
+}
+
+.netflix-item h2 {
+  font-weight: bold;
+  font-size: 1rem;
+  margin-bottom: 4px;
+}
+
+.netflix-item p {
+  font-size: 0.8rem;
+  color: #cccccc;
+  margin: 2px 0;
+}
+
+.netflix-item p ion-icon {
+  vertical-align: middle;
+  margin-right: 5px;
+  color: var(--ion-color-primary);
+}

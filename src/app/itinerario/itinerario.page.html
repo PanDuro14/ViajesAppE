@@ -1,0 +1,64 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Itinerario</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Selecciona un viaje</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-select [(ngModel)]="selectedViajeId" (ionChange)="cambiarViaje()" label="Destino" labelPlacement="stacked">
+        <ion-select-option *ngFor="let viaje of viajes" [value]="viaje.id">{{viaje.destino}} ({{viaje.fechaInicio | date:'dd/MM/yyyy'}})</ion-select-option>
+      </ion-select>
+    </ion-card-content>
+  </ion-card>
+
+  <div *ngIf="selectedViajeId && getViajeSeleccionado()">
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>{{getViajeSeleccionado()?.destino}}</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-item lines="none">
+          <ion-icon name="calendarOutline" slot="start"></ion-icon>
+          <ion-label>
+            {{getViajeSeleccionado()?.fechaInicio | date:'dd/MM/yyyy'}} - {{getViajeSeleccionado()?.fechaFin | date:'dd/MM/yyyy'}}
+          </ion-label>
+        </ion-item>
+      </ion-card-content>
+    </ion-card>
+
+    <div *ngIf="itinerarios.length === 0" class="ion-text-center ion-padding">
+      <p>No hay actividades programadas para este viaje.</p>
+    </div>
+
+    <div *ngFor="let dia of diasUnicos">
+      <ion-item-divider sticky="true">
+        <ion-label>
+          <h2>Día {{dia}}</h2>
+        </ion-label>
+      </ion-item-divider>
+
+      <ion-list>
+        <ion-item *ngFor="let actividad of getActividadesPorDia(dia)">
+          <ion-label>
+            <h2>{{actividad.actividad}}</h2>
+            <p>
+              <ion-icon name="timeOutline"></ion-icon> {{actividad.horaInicio}} - {{actividad.horaFin}}
+            </p>
+            <p>
+              <ion-icon name="locationOutline"></ion-icon> {{actividad.ubicacion}}
+            </p>
+          </ion-label>
+          <ion-badge slot="end" color="primary">Día {{actividad.dia}}</ion-badge>
+        </ion-item>
+      </ion-list>
+    </div>
+  </div>
+</ion-content>

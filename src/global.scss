@@ -1,37 +1,135 @@
-/*
- * App Global CSS
- * ----------------------------------------------------------------------------
- * Put style rules here that you want to apply globally. These styles are for
- * the entire app and not just one component. Additionally, this file can be
- * used as an entry point to import other CSS/Sass files to be included in the
- * output CSS.
- * For more information on global stylesheets, visit the documentation:
- * https://ionicframework.com/docs/layout/global-stylesheets
- */
+/* Estilos globales inspirados en Netflix */
+:root {
+  --ion-background-color: #141414;
+  --ion-background-color-rgb: 20, 20, 20;
+  --ion-text-color: #ffffff;
+  --ion-text-color-rgb: 255, 255, 255;
+  --ion-color-primary: #e50914;
+  --ion-color-primary-rgb: 229, 9, 20;
+  --ion-color-primary-contrast: #ffffff;
+  --ion-color-primary-shade: #c90812;
+  --ion-color-primary-tint: #e72d35;
+  --ion-color-secondary: #6d6d6d;
+  --ion-color-secondary-rgb: 109, 109, 109;
+  --ion-color-secondary-contrast: #ffffff;
+  --ion-color-success: #2ecc71;
+  --ion-color-warning: #f39c12;
+  --ion-color-danger: #e74c3c;
+  --ion-font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
 
-/* Core CSS required for Ionic components to work properly */
-@import "@ionic/angular/css/core.css";
+html, body {
+  display: block !important;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background-color: var(--ion-background-color);
+  color: var(--ion-text-color);
+}
 
-/* Basic CSS for apps built with Ionic */
-@import "@ionic/angular/css/normalize.css";
-@import "@ionic/angular/css/structure.css";
-@import "@ionic/angular/css/typography.css";
-@import "@ionic/angular/css/display.css";
+ion-app {
+  display: block;
+  height: 100%;
+}
 
-/* Optional CSS utils that can be commented out */
-@import "@ionic/angular/css/padding.css";
-@import "@ionic/angular/css/float-elements.css";
-@import "@ionic/angular/css/text-alignment.css";
-@import "@ionic/angular/css/text-transformation.css";
-@import "@ionic/angular/css/flex-utils.css";
+/* Estilos para tarjetas al estilo Netflix */
+ion-card {
+  border-radius: 4px;
+  overflow: hidden;
+  margin: 10px;
+  background-color: #1f1f1f;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
 
-/**
- * Ionic Dark Mode
- * -----------------------------------------------------
- * For more info, please see:
- * https://ionicframework.com/docs/theming/dark-mode
- */
+ion-card:hover {
+  transform: scale(1.03);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+}
 
-/* @import "@ionic/angular/css/palettes/dark.always.css"; */
-/* @import "@ionic/angular/css/palettes/dark.class.css"; */
-@import '@ionic/angular/css/palettes/dark.system.css';
+ion-card-title {
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+ion-button {
+  --border-radius: 4px;
+  font-weight: bold;
+  text-transform: none;
+}
+
+ion-toolbar {
+  --background: #000000;
+}
+
+ion-content {
+  --padding-start: 10px;
+  --padding-end: 10px;
+  --padding-top: 10px;
+  --padding-bottom: 10px;
+}
+
+/* Estilos para listas al estilo Netflix */
+ion-list {
+  background-color: transparent;
+}
+
+ion-item {
+  --background: transparent;
+  --border-color: rgba(255, 255, 255, 0.1);
+  --padding-start: 10px;
+  --padding-end: 10px;
+  --padding-top: 8px;
+  --padding-bottom: 8px;
+  --inner-padding-end: 0;
+}
+
+ion-searchbar {
+  --background: #333333;
+  --color: white;
+  --placeholder-color: #999999;
+  --icon-color: #999999;
+  --border-radius: 4px;
+  padding: 0 10px;
+  margin-bottom: 15px;
+}
+
+ion-segment {
+  --background: transparent;
+  padding: 5px 0;
+}
+
+ion-segment-button {
+  --background-checked: var(--ion-color-primary);
+  --color-checked: white;
+  --indicator-color: var(--ion-color-primary);
+  min-height: 40px;
+  font-weight: bold;
+  text-transform: none;
+}
+
+/* Centrado de elementos */
+.center-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+/* Estilos para imágenes */
+ion-img {
+  object-fit: cover;
+  height: 180px;
+  width: 100%;
+}
+
+/* Estilos para modales */
+ion-modal ion-content {
+  --background: #1f1f1f;
+}
+
+ion-modal ion-toolbar {
+  --background: #000000;
+  --color: white;
+}

@@ -1,0 +1,118 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Fotos de mis viajes</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+  <ion-searchbar [(ngModel)]="searchTerm" (ionInput)="filterFotos()" placeholder="Buscar por título, descripción o destino..."></ion-searchbar>
+  
+  <div *ngIf="filteredFotos.length === 0" class="ion-text-center ion-padding">
+    <p>No se encontraron fotos que coincidan con tu búsqueda.</p>
+  </div>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col size="12" size-md="6" size-lg="4" *ngFor="let foto of filteredFotos">
+        <ion-card>
+          <ion-img [src]="foto.url" alt="{{foto.titulo}}" (click)="openActionSheet(foto)"></ion-img>
+          <ion-card-header>
+            <ion-card-title>{{foto.titulo}}</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <p>{{foto.descripcion}}</p>
+            <p><small>{{foto.destino}} - {{foto.fecha | date:'dd/MM/yyyy'}}</small></p>
+            
+            <div class="ion-text-end ion-margin-top">
+              <ion-button fill="clear" (click)="likePhoto(foto)">
+                <ion-icon slot="icon-only" [name]="foto.liked ? 'heart' : 'heart-outline'"></ion-icon>
+              </ion-button>
+              <span>{{foto.likes}}</span>
+              <ion-button fill="clear" (click)="openActionSheet(foto)">
+                <ion-icon slot="icon-only" name="share-outline"></ion-icon>
+              </ion-button>
+            </div>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <!-- FAB para agregar nueva foto -->
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="addNewPhoto()">
+      <ion-icon name="add-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+  <!-- Action Sheet para compartir o eliminar -->
+  <ion-action-sheet
+    [isOpen]="showActionSheet"
+    header="Opciones"
+    [buttons]="actionSheetButtons"
+    (didDismiss)="showActionSheet = false">
+  </ion-action-sheet>
+
+  <!-- Modal para agregar nueva foto -->
+  <ion-modal [isOpen]="showModal">
+    <ng-template>
+      <ion-header>
+        <ion-toolbar color="primary">
+          <ion-title>Nueva Foto</ion-title>
+          <ion-buttons slot="end">
+            <ion-button (click)="cancelAddPhoto()">
+              <ion-icon name="close-outline"></ion-icon>
+            </ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content class="ion-padding">
+        <ion-item>
+          <ion-label position="stacked">Título</ion-label>
+          <ion-input [(ngModel)]="newFoto.titulo" placeholder="Ej. Amanecer en la playa"></ion-input>
+        </ion-item>
+        
+        <ion-item>
+          <ion-label position="stacked">Descripción</ion-label>
+          <ion-textarea [(ngModel)]="newFoto.descripcion" rows="3" placeholder="Describe tu foto..."></ion-textarea>
+        </ion-item>
+        
+        <ion-item>
+          <ion-label position="stacked">Destino</ion-label>
+          <ion-input [(ngModel)]="newFoto.destino" placeholder="Ej. Cancún"></ion-input>
+        </ion-item>
+        
+        <ion-item>
+          <ion-label position="stacked">Fecha</ion-label>
+          <ion-input type="date" [(ngModel)]="newFoto.fecha"></ion-input>
+        </ion-item>
+        
+        <ion-item>
+          <ion-label position="stacked">URL de la imagen</ion-label>
+          <ion-input [(ngModel)]="newFoto.url" placeholder="URL de la imagen"></ion-input>
+          <ion-button slot="end" fill="clear" (click)="generateRandomImage()">
+            <ion-icon name="image-outline"></ion-icon>
+          </ion-button>
+        </ion-item>
+        
+        <ion-button expand="block" color="primary" class="ion-margin-top" (click)="savePhoto()">
+          <ion-icon name="save-outline" slot="start"></ion-icon>
+          Guardar Foto
+        </ion-button>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+
+  <!-- Toast para notificaciones -->
+  <ion-toast
+    [isOpen]="showToast"
+    [message]="toastMessage"
+    [duration]="2000"
+    (didDismiss)="showToast = false"
+    position="bottom"
+    color="primary">
+  </ion-toast>
+</ion-content>
