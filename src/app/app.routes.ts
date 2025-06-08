@@ -34,7 +34,19 @@ export const routes: Routes = [
     path: 'ajustes',
     loadComponent: () => import('./ajustes/ajustes.page').then((m) => m.AjustesPage),
   },
-  
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
+  {
+    path: 'login',
+    loadComponent: () => {
+      console.log('💥 LoginPage intentando cargar...');
+      return import('./login/login.page').then((m) => {
+        console.log('✅ LoginPage encontrado:', m.LoginPage);
+        return m.LoginPage;
+      });
+    }
+  },
+
   // Err 404
   { path: '**', redirectTo: 'home' },
+
 ];

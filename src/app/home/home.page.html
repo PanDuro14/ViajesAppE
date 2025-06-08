@@ -15,7 +15,7 @@
     <h2 class="menu-title">Ajuste de Tu viaje!</h2>
 
     <ion-list>
-      <ion-item button *ngFor="let item of menuItems" [routerLink]="item.route" lines="none">
+      <ion-item button *ngFor="let item of menuItems" [routerLink]="item.route" lines="none" >
         <ion-label>{{ item.title }}</ion-label>
         <ion-icon [name]="item.icon" slot="end"></ion-icon>
       </ion-item>

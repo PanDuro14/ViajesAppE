@@ -1,0 +1,94 @@
+<ion-content fullscreen="true" class="login-content">
+  <div class="login-page">
+    <div class="container" [ngClass]="{'active': isSignUpMode}" id="container">
+      <!-- FORMULARIO REGISTRO -->
+      <div class="form-container sign-up">
+        <form [formGroup]="formSingup" (ngSubmit)="createOneUsuario()">
+          <h1>Crear Cuenta</h1>
+          <div class="social-icons">
+            <ion-button>
+              <ion-icon name="logo-google"></ion-icon>
+            </ion-button>
+          </div>
+          <span>usa tu correo para registrarte</span>
+
+          <ion-input type="text" formControlName="username" label="Nombre de Usuario" labelPlacement="floating" name="userName" required></ion-input>
+          <div *ngIf="formSingup.get('username')?.invalid && formSingup.get('username')?.touched">
+            <p *ngIf="formSingup.get('username')?.hasError('required')">Nombre de usuario requerido</p>
+            <p *ngIf="formSingup.get('username')?.hasError('usernameExist')">El nombre de usuario no está disponible</p>
+          </div>
+
+          <ion-input type="email" formControlName="correo" label="Correo electrónico" labelPlacement="floating" name="correo" required></ion-input>
+          <div *ngIf="formSingup.get('correo')?.invalid && formSingup.get('correo')?.touched">
+            <p *ngIf="formSingup.get('correo')?.hasError('required')">Correo electrónico requerido</p>
+            <p *ngIf="formSingup.get('correo')?.hasError('email')">Correo electrónico no es válido</p>
+            <p *ngIf="formSingup.get('correo')?.hasError('emailExist')">El correo ya está en uso</p>
+          </div>
+
+          <ion-input label="Contraseña" labelPlacement="floating" formControlName="passw">
+            <input [type]="passwordFieldType" />
+            <ion-icon slot="end" (click)="togglePasswordVisibility()"
+              [name]="passwordFieldType === 'text' ? 'eye-off-outline' : 'eye-outline'">
+            </ion-icon>
+          </ion-input>
+
+          <div *ngIf="formSingup.get('passw')?.invalid && formSingup.get('passw')?.touched">
+            <p *ngIf="formSingup.get('passw')?.hasError('required')">Contraseña es requerida</p>
+          </div>
+
+          <ion-input type="password" formControlName="confirmPassw" label="Confirmar Contraseña" labelPlacement="floating" name="contraseña" required>
+            <ion-icon class="eye" slot="end" (click)="togglePasswordVisibility()" [name]="passwordFieldType === 'text' ? 'eye-off-outline' : 'eye-outline'"></ion-icon>
+          </ion-input>
+          <div *ngIf="formSingup.get('confirmPassw')?.invalid && formSingup.get('confirmPassw')?.touched">
+            <p *ngIf="formSingup.get('confirmPassw')?.hasError('required')">Confirmar contraseña</p>
+            <p *ngIf="formSingup.get('confirmPassw')?.hasError('confirmPassw')">Las contraseñas no coinciden</p>
+          </div>
+          <button type="submit" [disabled]="!formSingup.valid">Registrarse</button>
+        </form>
+      </div>
+
+      <!-- FORMULARIO LOGIN -->
+      <div class="form-container sign-in">
+        <form [formGroup]="formLogin" (ngSubmit)="login($event)">
+          <h1>Iniciar Sesión</h1>
+          <span>usa tu correo y contraseña</span>
+
+          <ion-input type="email" formControlName="correo" label="Correo" labelPlacement="floating" name="correo" required></ion-input>
+          <div *ngIf="formLogin.get('correo')?.invalid && formLogin.get('correo')?.touched">
+            <p *ngIf="formLogin.get('correo')?.hasError('required')">El correo es requerido</p>
+            <p *ngIf="formLogin.get('correo')?.hasError('email')">Correo electrónico inváldio</p>
+          </div>
+
+          <ion-input label="Contraseña" labelPlacement="floating" formControlName="passw">
+            <input [type]="passwordFieldType" />
+            <ion-icon slot="end" (click)="togglePasswordVisibility()"
+              [name]="passwordFieldType === 'text' ? 'eye-off-outline' : 'eye-outline'">
+            </ion-icon>
+          </ion-input>
+
+          <div *ngIf="formLogin.get('passw')?.invalid && formLogin.get('passw')?.touched">
+            <p *ngIf="formLogin.get('passw')?.hasError('required')">La contraseña es requerida</p>
+          </div>
+          <a href="#">¿Olvidaste tu contraseña?</a>
+          <button type="submit" [disabled]="!formLogin.valid">Iniciar Sesión</button>
+        </form>
+      </div>
+
+      <!-- TOGGLE -->
+      <div class="toggle-container">
+        <div class="toggle">
+          <div class="toggle-panel toggle-left">
+            <h1 >¡Bienvenido de Nuevo!</h1>
+            <p>Introduce tus datos personales para usar todas las funcionalidades del sitio</p>
+            <button (click)="showLoginForm()">Iniciar Sesión</button>
+          </div>
+          <div class="toggle-panel toggle-right">
+            <h1>¡Hola, Amigo!</h1>
+            <p>Regístrate con tus datos personales para usar todas las funcionalidades del sitio</p>
+            <button (click)="showSignUpForm()">Registrarse</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ion-content>

@@ -12,6 +12,11 @@ import { RouterModule } from '@angular/router';
   imports: [IonicModule, CommonModule, RouterModule],
 })
 export class HomePage {
+
+  ngOnInit() {
+    console.log('HomePage initialized');
+    return 'Ola';
+  }
   menuItems = [
     { title: 'Itinerario', route: '/itinerario', icon: 'document-text-outline' },
     { title: 'Administrador', route: '/admin', icon: 'settings-outline' },
@@ -20,5 +25,13 @@ export class HomePage {
     { title: 'Mis viajes agendados', route: '/viajes', icon: 'calendar-outline' },
     { title: 'Reglas y normas', route: '/reglas', icon: 'book-outline' },
     { title: 'Ajustes generales', route: '/ajustes', icon: 'cog-outline' },
+    { title: 'Iniciar sesión', route: '/login', icon: 'log-in-outline' }
   ];
+
+
+  constructor() {
+    console.log('HomePage constructor called');
+  }
+
+
 }
