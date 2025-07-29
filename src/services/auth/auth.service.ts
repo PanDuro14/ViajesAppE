@@ -8,6 +8,22 @@ import { Platform } from '@ionic/angular';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { environment } from 'src/environments/environment';
 
+// Firebase functions
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
+import { getAuth } from 'firebase/auth';
+
+// Tu configuración de Firebase
+const firebaseConfig = {
+  apiKey: "AIzaSyAEQRSHVie3gi1KJ-TQWScTzZ0oppNtt_8",
+  authDomain: "pruebasdatabase-c194a.firebaseapp.com",
+  projectId: "pruebasdatabase-c194a",
+  storageBucket: "pruebasdatabase-c194a.firebasestorage.app",
+  messagingSenderId: "571827057477",
+  appId: "1:571827057477:web:1acae5c3addbc9b3f1842c",
+  measurementId: "G-G9N2L3983K"
+};
+
 const TOKEN_KEY = 'jwt-token';
 const helper = new JwtHelperService();
 
@@ -32,6 +48,14 @@ export class AuthService {
   ) {
     this.platform.ready().then(() => this.initStorage());
     this.loadStoredToken();
+    this.initializeFirebase();
+  }
+
+  private initializeFirebase() {
+    // Inicializa Firebase en el servicio
+    const app = initializeApp(firebaseConfig);
+    getAnalytics(app); // Si necesitas analytics, puedes inicializarlo también
+    this.auth = getAuth(app); // Inicializa Auth para usarlo en este servicio
   }
 
   private async initStorage() {
@@ -80,6 +104,7 @@ export class AuthService {
   async logout() {
     await this.storage.remove(TOKEN_KEY);
     this.userData.next(null);
+    this.adminSubject.next(false);
     window.location.reload();
   }
 
