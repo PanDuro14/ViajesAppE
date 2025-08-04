@@ -9,7 +9,7 @@ import { provideHttpClient } from '@angular/common/http';
 import { IonicStorageModule } from '@ionic/storage-angular';
 import { environment } from './environments/environment';
 import { importProvidersFrom } from '@angular/core';
-
+import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 
 import {
   documentTextOutline,
@@ -21,6 +21,15 @@ import {
   cogOutline
 } from 'ionicons/icons';
 import { addIcons } from 'ionicons';
+
+const firebaseConfig = {
+  apiKey: environment.firebaseConfig.apiKey,
+  authDomain: environment.firebaseConfig.authDomain,
+  projectId: environment.firebaseConfig.projectId,
+  storageBucket: environment.firebaseConfig.storageBucket,
+  messagingSenderId: environment.firebaseConfig.messagingSenderId,
+  appId: environment.firebaseConfig.appId
+};
 
 addIcons({
   'document-text-outline': documentTextOutline,
@@ -37,6 +46,7 @@ bootstrapApplication(AppComponent, {
     provideRouter(routes),
     provideIonicAngular(),
     provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
+    provideFirestore(() => getFirestore()),
     provideAuth(() => getAuth()),
     provideHttpClient(),
     importProvidersFrom(

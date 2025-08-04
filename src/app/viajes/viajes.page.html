@@ -20,7 +20,7 @@
   <!-- Viajes Disponibles -->
   <div *ngIf="activeTab === 'disponibles'" class="ion-padding">
     <ion-searchbar [(ngModel)]="searchTerm" (ionInput)="filterViajes()" placeholder="Buscar destino..." class="netflix-searchbar"></ion-searchbar>
-    
+
     <div *ngIf="filteredViajes.length === 0" class="netflix-empty">
       <p>No se encontraron viajes que coincidan con tu búsqueda.</p>
     </div>
@@ -28,29 +28,30 @@
     <div class="netflix-grid">
       <div class="netflix-card" *ngFor="let viaje of filteredViajes">
         <ion-card>
-          <ion-img [src]="viaje.imagen" alt="{{viaje.destino}}"></ion-img>
+          <ion-img [src]="viaje.imagen || 'assets/default-trip.jpg'" alt="{{viaje.destino}}"></ion-img>
           <ion-card-header>
             <ion-card-subtitle>
-              <ion-badge color="{{viaje.disponible ? 'success' : 'danger'}}" class="netflix-badge">
-                {{viaje.disponible ? 'Disponible' : 'Agotado'}}
+              <ion-badge color="{{!viaje.agendado ? 'success' : 'danger'}}" class="netflix-badge">
+                {{!viaje.agendado ? 'Disponible' : 'Agendado'}}
               </ion-badge>
             </ion-card-subtitle>
             <ion-card-title class="netflix-title">{{viaje.destino}}</ion-card-title>
           </ion-card-header>
+
           <ion-card-content>
             <p class="netflix-description">{{viaje.descripcion}}</p>
-              
+
             <div class="netflix-info-item">
               <ion-icon name="calendarOutline"></ion-icon>
-              <span>{{formatDate(viaje.fechaInicio)}} - {{formatDate(viaje.fechaFin)}}</span>
+              <span>{{formatDate(viaje.fecha)}}</span>
             </div>
             <div class="netflix-info-item">
               <ion-icon name="cashOutline"></ion-icon>
               <span>{{viaje.precio | currency:'USD':'symbol':'1.0-0'}}</span>
             </div>
-              
-            <ion-button expand="block" [disabled]="!viaje.disponible" (click)="agendarViaje(viaje)" class="netflix-button">
-              Agendar Viaje
+
+            <ion-button expand="block" [disabled]="viaje.agendado" (click)="agendarViaje(viaje)" class="netflix-button">
+              {{viaje.agendado ? 'Ya Agendado' : 'Agendar Viaje'}}
             </ion-button>
           </ion-card-content>
         </ion-card>
@@ -70,17 +71,23 @@
     <ion-list class="netflix-list">
       <ion-item-sliding *ngFor="let viaje of viajesAgendados$ | async">
         <ion-item class="netflix-item">
-          <div class="netflix-thumbnail" slot="start">
-            <ion-img [src]="viaje.imagen"></ion-img>
-          </div>
+          <ion-thumbnail slot="start">
+            <ion-img [src]="viaje.imagen || 'assets/default-trip.jpg'"></ion-img>
+          </ion-thumbnail>
           <ion-label>
             <h2>{{viaje.destino}}</h2>
-            <p><ion-icon name="calendarOutline"></ion-icon> {{formatDate(viaje.fechaInicio)}} - {{formatDate(viaje.fechaFin)}}</p>
+            <p><ion-icon name="calendarOutline"></ion-icon> {{formatDate(viaje.fecha)}}</p>
             <p><ion-icon name="cashOutline"></ion-icon> {{viaje.precio | currency:'USD':'symbol':'1.0-0'}}</p>
           </ion-label>
         </ion-item>
+
         <ion-item-options side="end">
+          <ion-item-option color="primary" (click)="openPaymentModal()">
+            <ion-icon name="card" slot="icon-only"></ion-icon>
+            Pagar
+          </ion-item-option>
           <ion-item-option color="danger" (click)="cancelarViaje(viaje)">
+            <ion-icon name="trash" slot="icon-only"></ion-icon>
             Cancelar
           </ion-item-option>
         </ion-item-options>

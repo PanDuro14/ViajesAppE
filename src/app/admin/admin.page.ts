@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar, IonBackButton, IonButtons, 
-  IonList, IonItem, IonLabel, IonButton, IonIcon, IonCard, IonCardHeader, 
-  IonCardTitle, IonCardContent, IonInput, IonTextarea, IonToggle, IonAlert, 
-  IonToast, IonGrid, IonRow, IonCol, IonItemSliding, IonItemOptions, 
+import { IonContent, IonHeader, IonTitle, IonToolbar, IonBackButton, IonButtons,
+  IonList, IonItem, IonLabel, IonButton, IonIcon, IonCard, IonCardHeader,
+  IonCardTitle, IonCardContent, IonInput, IonTextarea, IonToggle, IonAlert,
+  IonToast, IonGrid, IonRow, IonCol, IonItemSliding, IonItemOptions,
   IonItemOption, IonModal, IonDatetime } from '@ionic/angular/standalone';
 import { ViajesService, Viaje } from '../services/viajes.service';
 import { addIcons } from 'ionicons';
@@ -16,10 +16,10 @@ import { addOutline, createOutline, trashOutline, closeOutline, saveOutline, ima
   styleUrls: ['./admin.page.scss'],
   standalone: true,
   imports: [
-    IonContent, IonHeader, IonTitle, IonToolbar, IonBackButton, IonButtons, 
-    IonList, IonItem, IonLabel, IonButton, IonIcon, IonCard, IonCardHeader, 
-    IonCardTitle, IonCardContent, IonInput, IonTextarea, IonToggle, IonAlert, 
-    IonToast, IonGrid, IonRow, IonCol, IonItemSliding, IonItemOptions, 
+    IonContent, IonHeader, IonTitle, IonToolbar, IonBackButton, IonButtons,
+    IonList, IonItem, IonLabel, IonButton, IonIcon, IonCard, IonCardHeader,
+    IonCardTitle, IonCardContent, IonInput, IonTextarea, IonToggle, IonAlert,
+    IonToast, IonGrid, IonRow, IonCol, IonItemSliding, IonItemOptions,
     IonItemOption, IonModal, IonDatetime,
     CommonModule, FormsModule, ReactiveFormsModule
   ]
@@ -44,7 +44,7 @@ export class AdminPage implements OnInit {
   showToast: boolean = false;
   toastMessage: string = '';
   viajeToDelete: number | null = null;
-  
+
   // Nuevo viaje o viaje a editar
   editingViaje: Viaje = this.getEmptyViaje();
   isEditing: boolean = false;
@@ -72,7 +72,8 @@ export class AdminPage implements OnInit {
       precio: 0,
       descripcion: '',
       imagen: 'https://picsum.photos/id/1036/500/300',
-      disponible: true
+      disponible: true,
+      fecha: '2023-12-15'
     };
   }
 
@@ -124,10 +125,10 @@ export class AdminPage implements OnInit {
   }
 
   validateViaje(): boolean {
-    return !!this.editingViaje.destino && 
-           !!this.editingViaje.fechaInicio && 
-           !!this.editingViaje.fechaFin && 
-           this.editingViaje.precio > 0 && 
+    return !!this.editingViaje.destino &&
+           !!this.editingViaje.fechaInicio &&
+           !!this.editingViaje.fechaFin &&
+           this.editingViaje.precio > 0 &&
            !!this.editingViaje.descripcion;
   }
 

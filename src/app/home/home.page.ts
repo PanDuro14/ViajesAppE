@@ -3,6 +3,10 @@ import { IonicModule } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
+import { ModalController } from '@ionic/angular';  // Importa ModalController
+import { PaymentComponent } from '../payment/payment.component';  // Importa PaymentComponent
+
+
 
 @Component({
   selector: 'app-home',
@@ -28,10 +32,17 @@ export class HomePage {
     { title: 'Iniciar sesión', route: '/login', icon: 'log-in-outline' }
   ];
 
-
-  constructor() {
+  constructor(private modalController: ModalController) {
     console.log('HomePage constructor called');
   }
 
+  // Método para abrir el modal de pago
+  async openPaymentModal() {
+    const modal = await this.modalController.create({
+      component: PaymentComponent,  // Componente a mostrar
+    });
 
+    // Presentar el modal
+    return await modal.present();
+  }
 }

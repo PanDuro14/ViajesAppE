@@ -10,6 +10,7 @@ export interface Viaje {
   descripcion: string;
   imagen: string;
   disponible: boolean;
+  fecha: string;
 }
 
 export interface Itinerario {
@@ -44,7 +45,8 @@ export class ViajesService {
       precio: 1200,
       descripcion: 'Disfruta de las hermosas playas de arena blanca y aguas cristalinas en este paraíso caribeño.',
       imagen: 'https://picsum.photos/id/1036/500/300',
-      disponible: true
+      disponible: true,
+      fecha: '2023-12-15'
     },
     {
       id: 2,
@@ -54,7 +56,8 @@ export class ViajesService {
       precio: 950,
       descripcion: 'Explora la rica historia y cultura de la capital mexicana con sus museos, gastronomía y arquitectura.',
       imagen: 'https://picsum.photos/id/1037/500/300',
-      disponible: true
+      disponible: true,
+      fecha: '2023-12-15'
     },
     {
       id: 3,
@@ -64,7 +67,8 @@ export class ViajesService {
       precio: 1500,
       descripcion: 'Vacaciones todo incluido en uno de los destinos turísticos más populares de México.',
       imagen: 'https://picsum.photos/id/1038/500/300',
-      disponible: true
+      disponible: true,
+      fecha: '2023-12-15'
     },
     {
       id: 4,
@@ -74,7 +78,8 @@ export class ViajesService {
       precio: 850,
       descripcion: 'Descubre la riqueza cultural, gastronómica y artesanal de esta hermosa ciudad colonial.',
       imagen: 'https://picsum.photos/id/1039/500/300',
-      disponible: false
+      disponible: false,
+      fecha: '2023-12-15'
     }
   ];
 
